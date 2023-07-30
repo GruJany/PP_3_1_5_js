@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <span th:text="${user.getUsername()}">Username</span>
+    <span th:text="${user.getSurname()}">undefined</span>
+    <span th:text="${user.getAge()}">undefined</span>
+</div>
+
+</body>
+</html>
