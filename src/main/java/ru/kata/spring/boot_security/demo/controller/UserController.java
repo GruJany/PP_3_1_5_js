@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
-import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/user")
@@ -25,9 +23,8 @@ public class UserController {
     public String User(ModelMap model,
                        @AuthenticationPrincipal UserDetails userDetails) {
         return userService.findByUsername(userDetails.getUsername()).map(user -> {
-                model.addAttribute("user", user);
-                return "user/user";
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            model.addAttribute("user", user);
+            return "user/user";
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
 }

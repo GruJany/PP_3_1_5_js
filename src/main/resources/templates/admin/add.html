@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="/admin/new/add" th:object="${user}">
+<div th:insert="~{fragment :: header}"></div>
+<form method="post" th:action="@{/admin/new/add}" th:object="${user}">
     <label for="username">Name:
         <input id="username" type="text" name="username" th:value="*{username}">
     </label><br>

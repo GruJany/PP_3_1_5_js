@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:insert="~{fragment :: header}"></div>
 <div>
     <span th:text="${user.getUsername()}">Username</span>
     <span th:text="${user.getSurname()}">undefined</span>

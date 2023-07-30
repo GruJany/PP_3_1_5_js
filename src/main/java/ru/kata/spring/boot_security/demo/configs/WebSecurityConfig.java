@@ -1,16 +1,13 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 
@@ -29,24 +26,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(urlConfig ->urlConfig
-                        //.antMatchers("/", "/index").permitAll()
+                .authorizeHttpRequests(urlConfig -> urlConfig
                         .antMatchers("/admin/**").hasAuthority("ADMIN")
                         .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
-                //.antMatchers("/", "/index").permitAll()
-                //.anyRequest().authenticated()
-                //.and()
                 .formLogin().successHandler(successUserHandler)
                 .and()
                 .logout();
 
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
