@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping
     public String User(ModelMap model,
                        @AuthenticationPrincipal UserDetails userDetails) {
-        return userService.findByUsername(userDetails.getUsername()).map(user -> {
+        return userService.findByEmail(userDetails.getUsername()).map(user -> {
             model.addAttribute("user", user);
             return "user/user";
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

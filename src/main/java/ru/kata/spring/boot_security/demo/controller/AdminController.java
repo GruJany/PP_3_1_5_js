@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +23,12 @@ public class AdminController {
     }
 
     @GetMapping
-    public String allUsers(ModelMap model) {
+    public String allUsers(ModelMap model, @AuthenticationPrincipal UserDetails userDetails) {
         model.addAttribute("users", userService.getAllUsers());
-        return "admin/users";
+        return userService.findByEmail(userDetails.getUsername()).map(user -> {
+            model.addAttribute("user", user);
+            return "admin/users";
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping(value = "/{id}")

@@ -7,7 +7,7 @@
 <body>
 <div th:insert="~{fragment :: header}"></div>
 <div>
-    <span th:text="${user.getUsername()}">Username</span>
+    <span th:text="${user.getName()}">Username</span>
     <span th:text="${user.getSurname()}">undefined</span>
     <span th:text="${user.getAge()}">undefined</span>
 </div>

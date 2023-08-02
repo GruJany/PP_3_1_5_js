@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,12 +21,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    private String name;
 
     private String surname;
 
     private Integer age;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -41,7 +45,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override

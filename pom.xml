@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.kata</groupId>
-	<artifactId>spring-boot_security-demo</artifactId>
+	<artifactId>spring-boot_bootstrap</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot_security-demo</name>
 	<description>Demo project for Spring Boot</description>
@@ -58,6 +58,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.26</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope><!-- -->
+			<optional>true</optional>
 		</dependency>
 
 	</dependencies>

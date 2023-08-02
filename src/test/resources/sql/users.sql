@@ -1,9 +1,9 @@
-INSERT INTO users (id, age, username, surname, password)
-VALUES (1, 12, 'Ivan', 'Ivanov', '{noop}123'),
-       (2, 20, 'Petr', 'Petrov', '{noop}123'),
-       (3, 30, 'Sveta', 'Svetikova', '{noop}123'),
-       (4, 13, 'Vlad', 'Vladikov', '{noop}123'),
-       (5, 35, 'Kate', 'Smith', '{noop}123');
+INSERT INTO users (id, age, name, surname, email, password)
+VALUES (1, 12, 'Ivan', 'Ivanov', 'ivan@mail.ru', '{noop}123'),
+       (2, 20, 'Petr', 'Petrov', 'petr@mail.ru',  '{noop}123'),
+       (3, 30, 'Sveta', 'Svetikova', 'sveta@mail.ru',  '{noop}123'),
+       (4, 13, 'Vlad', 'Vladikov', 'vlad@mail.ru',  '{noop}123'),
+       (5, 35, 'Kate', 'Smith', 'kate@mail.ru',  '{noop}123');
 
 INSERT INTO `roles` (`id`, `role`)
 VALUES
