@@ -5,8 +5,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
+import ru.kata.spring.boot_security.demo.entity.Role;
+import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
@@ -22,9 +25,12 @@ public class UserController {
     @GetMapping
     public String User(ModelMap model,
                        @AuthenticationPrincipal UserDetails userDetails) {
-        return userService.findByEmail(userDetails.getUsername()).map(user -> {
-            model.addAttribute("user", user);
-            return "user/user";
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        User user = userService.findByEmail(userDetails.getUsername()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        String name = user.getRoles().stream()
+                .map(Role::getRole)
+                .filter(role_name -> role_name.equals("ADMIN")).findFirst().orElse("USER");
+        model.addAttribute("role_name", name);
+        model.addAttribute("user", user);
+        return "user/user";
     }
 }

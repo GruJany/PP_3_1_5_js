@@ -8,9 +8,10 @@ import ru.kata.spring.boot_security.demo.entity.Role;
 import java.util.List;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     @Autowired
-    private  RoleRepository roleRepository;
+    private RoleRepository roleRepository;
+
     @Override
     public List<Role> findAll() {
         return roleRepository.findAll();

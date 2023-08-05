@@ -1,21 +1,17 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleRepository;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
     @Override
     @Transactional
     public void addUser(User user) {
@@ -65,7 +62,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public User updateUser(Long id, User user) {
         user.setId(id);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if ("".equals(user.getPassword())) {
+            user.setPassword(userRepository.getById(id).getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        if (user.getRoles() == null) {
+            user.setRoles(userRepository.getById(id).getRoles());
+        }
         return userRepository.save(user);
     }
 
